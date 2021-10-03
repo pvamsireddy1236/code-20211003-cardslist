@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import './style.css';
 
-export const PokemonList = props => {
+const PokemonList = props => {
   const params = useParams();
   const pageNumber = params.pageNumber ? parseInt(params.pageNumber, 10) : 1;
 
@@ -254,3 +254,5 @@ export const PokemonList = props => {
     </div>
   );
 };
+
+export default PokemonList;

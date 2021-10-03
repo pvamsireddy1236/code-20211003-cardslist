@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import './style.css';
 
-export const PokemonDetails = () => {
+const PokemonDetails = () => {
   const params = useParams();
   const pokemonId = params.pokemonId ? parseInt(params.pokemonId) : 1;
   let history = useHistory();
@@ -53,3 +53,5 @@ export const PokemonDetails = () => {
     </div>
   );
 };
+
+export default PokemonDetails;
