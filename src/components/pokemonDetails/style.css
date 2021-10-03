@@ -1,0 +1,10 @@
+.container {
+    background: #cdcbcb;
+    width: 100%;
+    display: block;
+  }
+  .centered {
+    margin: 0 auto;
+    padding: 0 1em;
+  }
+  
