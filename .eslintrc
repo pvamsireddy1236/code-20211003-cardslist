@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "react",
+    "react-hooks"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "semi": 2,
+    "indent": [
+      "error",
+      2
+    ],
+    "react/jsx-indent": [
+      2,
+      2
+    ],
+    "react/jsx-key": [
+      2
+    ],
+    "react/no-children-prop": "error",
+    "react/self-closing-comp": "error",
+    "react/jsx-closing-tag-location": [2, "always"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": false
+    }
+  }
+}
