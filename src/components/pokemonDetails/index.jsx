@@ -24,9 +24,8 @@ const PokemonDetails = () => {
   return (
     <div className="container">
       <div className="centered">
-        <h2>Pokemon Details</h2>
-
-        {`Pokemon Name : ${pokemonInfo && pokemonInfo.name}`}
+        <PokemonDetailsLabel /> 
+        <PokemonNameDisplay pokemonInfo={pokemonInfo}/>
         <button onClick={() => history.goBack()} style={{ float: 'right' }}>
           {`<< Previus Page`}
         </button>
@@ -51,6 +50,18 @@ const PokemonDetails = () => {
         <button onClick={() => history.goBack()}>{`<< Previus Page`}</button>
       </div>
     </div>
+  );
+};
+
+export const PokemonDetailsLabel = () =>{
+  return(
+    <h2>Pokemon Details</h2>
+  );
+};
+
+export const PokemonNameDisplay = (props) =>{
+  return(
+    `Pokemon Name : ${props.pokemonInfo && props.pokemonInfo.name}`
   );
 };
 
