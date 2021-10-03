@@ -1,7 +1,7 @@
-import React from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
-import { PokemonList } from "../components/pokemonList";
-import {PokemonDetails} from '../components/pokemonDetails';
+import React from 'react';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import { PokemonList } from '../components/pokemonList';
+import { PokemonDetails } from '../components/pokemonDetails';
 export default function Routes() {
   return (
     <Switch>

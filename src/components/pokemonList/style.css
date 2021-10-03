@@ -36,11 +36,10 @@ img {
 }
 
 .card-content p {
-    font-size: 1em;
-    padding: 0px;
-    margin: 5px 2px;
+  font-size: 1em;
+  padding: 0px;
+  margin: 5px 2px;
 }
-
 
 .cards {
   display: flex;
@@ -69,9 +68,8 @@ img {
   padding: 0 1em;
 }
 
-.buttonLeft
-{
-    float: left;
+.buttonLeft {
+  float: left;
 }
 
 @media screen and (min-width: 52em) {

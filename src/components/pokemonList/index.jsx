@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link, useParams } from "react-router-dom";
-import "./style.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
+import './style.css';
 
-export const PokemonList = (props) => {
+export const PokemonList = props => {
   const params = useParams();
   const pageNumber = params.pageNumber ? parseInt(params.pageNumber, 10) : 1;
 
   const [state, setState] = useState({
     count: undefined,
     limitPerPage: 10,
-    next: "",
-    previous: "",
+    next: '',
+    previous: '',
     start: undefined,
     results: [],
     loading: false,
-    sortBy: localStorage.getItem("sortBy")
-      ? localStorage.getItem("sortBy")
-      : "",
+    sortBy: localStorage.getItem('sortBy')
+      ? localStorage.getItem('sortBy')
+      : '',
     refresh: false,
   });
 
@@ -28,9 +28,9 @@ export const PokemonList = (props) => {
           .get(
             `${process.env.REACT_APP_API_URL}/api/v2/pokemon/?offset=${
               1 + state.limitPerPage * (pageNumber - 1)
-            }&limit=${state.limitPerPage}`
+            }&limit=${state.limitPerPage}`,
           )
-          .then((response) => {
+          .then(response => {
             let { next, previous, results } = response.data;
             setState({
               loading: true,
@@ -41,13 +41,13 @@ export const PokemonList = (props) => {
             async function axiosWrapper(Item) {
               let ItemPromise = axios.request({
                 url: Item.url,
-                method: "get",
+                method: 'get',
               });
               let axiosResult = await ItemPromise;
               return axiosResult.data;
             }
 
-            let promiseArray = results.map((Item) => {
+            let promiseArray = results.map(Item => {
               return axiosWrapper(Item);
             });
 
@@ -73,9 +73,9 @@ export const PokemonList = (props) => {
               });
             });
           })
-          .catch((error) => {
+          .catch(error => {
             setState({
-              next: "not blank",
+              next: 'not blank',
             });
           });
       }
@@ -86,24 +86,27 @@ export const PokemonList = (props) => {
   const hasPrevious = pageNumber > 1;
   const hasNext = !!state.next;
 
-  const perPageCount = (event) => {
+  const perPageCount = event => {
     setState({
       limitPerPage: parseInt(event.target.value),
       sortBy: state.sortBy,
     });
   };
 
-  const onChangeSortBy = (event) => {
-    localStorage.setItem("sortBy", event.target.value);
-    setState({ sortBy: event.target.value, limitPerPage: state.limitPerPage });
+  const onChangeSortBy = event => {
+    localStorage.setItem('sortBy', event.target.value);
+    setState({
+      sortBy: event.target.value,
+      limitPerPage: state.limitPerPage,
+    });
   };
 
   const onSearchByname = (data, event) => {
-    localStorage.setItem("searchByName", event.target.value);
+    localStorage.setItem('searchByName', event.target.value);
 
     if (event.currentTarget.value) {
-      let searchRes = data.filter((a) =>
-        a.name.includes(event.currentTarget.value)
+      let searchRes = data.filter(a =>
+        a.name.includes(event.currentTarget.value),
       );
       setState({
         sortBy: state.sortBy,
@@ -123,7 +126,7 @@ export const PokemonList = (props) => {
   return (
     <div className="container">
       {state.loading ? (
-        "loading...."
+        'loading....'
       ) : (
         <div className="centered">
           <div className="previousBtn">
@@ -132,33 +135,43 @@ export const PokemonList = (props) => {
               <input
                 name="search"
                 type="text"
-                onChange={(event) => onSearchByname(state.results, event)}
+                onChange={event => onSearchByname(state.results, event)}
               />
             </div>
             Sort By : &nbsp;
             <select className="sortBy" name="sortBy" onChange={onChangeSortBy}>
-              {["name", "height", "weight"].map((type) => {
+              {['name', 'height', 'weight'].map(type => {
                 return (
-                  <option key={type} value={type} selected={type === state.sortBy}>
+                  <option
+                    key={type}
+                    value={type}
+                    selected={type === state.sortBy}
+                  >
                     {type}
                   </option>
                 );
               })}
             </select>
             &nbsp;
-
             {hasPrevious && (
-              <Link to={`/pokemonlist/page/${pageNumber - 1}`} className="buttonLeft" >{`<< Previous`}</Link>
+              <Link
+                to={`/pokemonlist/page/${pageNumber - 1}`}
+                className="buttonLeft"
+              >
+                {`<< Previous`}
+              </Link>
             )}
             {hasNext && (
-              <Link to={`/pokemonlist/page/${pageNumber + 1}`}>{`Next >>`}</Link>
+              <Link to={`/pokemonlist/page/${pageNumber + 1}`}>
+                {`Next >>`}
+              </Link>
             )}
           </div>
           <section className="cards">
             {state && state.results
               ? state.results.map((item, index) => {
-                console.log(">>>>>>>> ", item);
-                let image = item.sprites.other["official-artwork"];
+                console.log('>>>>>>>> ', item);
+                let image = item.sprites.other['official-artwork'];
 
                 return (
                   <article className="card" key={index}>
@@ -173,13 +186,17 @@ export const PokemonList = (props) => {
                         <p>
                           <label>Abilitys :</label>
                           <div>
-                            <ul style={{margin: '0px'}}>
-                              {item.abilities.map((abilityItem) => {
+                            <ul
+                              style={{
+                                margin: '0px',
+                              }}
+                            >
+                              {item.abilities.map(abilityItem => {
                                 let { is_hidden, ability } = abilityItem;
                                 return (
                                   <>
                                     {is_hidden ? (
-                                      ""
+                                      ''
                                     ) : (
                                       <li> {ability.name} </li>
                                     )}
@@ -194,7 +211,7 @@ export const PokemonList = (props) => {
                   </article>
                 );
               })
-              : "No Results found"}
+              : 'No Results found'}
           </section>
 
           <div className="nextBtn">
@@ -204,7 +221,7 @@ export const PokemonList = (props) => {
               name="dropdownmenu"
               onChange={perPageCount}
             >
-              {[10, 20, 30, 40].map((perPage) => {
+              {[10, 20, 30, 40].map(perPage => {
                 return (
                   <option
                     key={perPage}
@@ -218,11 +235,18 @@ export const PokemonList = (props) => {
             </select>
             &nbsp;
             {hasPrevious && (
-              <Link to={`/pokemonlist/page/${pageNumber - 1}`} className="buttonLeft">{`<< Previous`}</Link>
+              <Link
+                to={`/pokemonlist/page/${pageNumber - 1}`}
+                className="buttonLeft"
+              >
+                {`<< Previous`}
+              </Link>
             )}
             &nbsp;
             {hasNext && (
-              <Link to={`/pokemonlist/page/${pageNumber + 1}`}>{`Next >>`}</Link>
+              <Link to={`/pokemonlist/page/${pageNumber + 1}`}>
+                {`Next >>`}
+              </Link>
             )}
           </div>
         </div>
